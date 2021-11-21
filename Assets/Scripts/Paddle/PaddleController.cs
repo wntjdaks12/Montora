@@ -26,8 +26,8 @@ public class PaddleController : MonoBehaviour
             return;
 
         if (Input.GetMouseButton(0))
-            paddle.Move(Input.mousePosition);
+            paddle.Operate(Input.mousePosition);
         else
-            paddle.Idle();
+            paddle.Stop();
     }
 }

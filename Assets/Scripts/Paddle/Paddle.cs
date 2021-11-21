@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 public class Paddle : MonoBehaviour
 {
-    // 패들와 상태, 움직임은 의존적이며 합성관계입니다.
+    // 패들 작동에 있어 퍼사드로 묶은 요소들입니다.
     private PaddleState state;
     private PaddleMoveBehaviour moveBehaviour;
+    [SerializeField]
+    private PaddleSlider paddleSlider;
 
     private void Awake()
     {
@@ -26,29 +28,31 @@ public class Paddle : MonoBehaviour
         this.state = state;
     }
     /// <summary>
-    /// 패들의 움직임을 변경합니다.
+    /// 패들의 움직임 행위를 변경합니다.
     /// </summary>
-    /// <param name="moveBehaviour">새로운 움직임</param>
+    /// <param name="moveBehaviour">새로운 움직임 행위</param>
     public void SetMoveBehaviour(PaddleMoveBehaviour moveBehaviour)
     {
         this.moveBehaviour = moveBehaviour;
     }
 
     /// <summary>
-    /// 패들을 가만히 둡니다.
+    /// 패들을 멈춥니다.
     /// </summary>
-    public void Idle()
+    public void Stop()
     {
         state?.Idle(this);
     }
 
     /// <summary>
-    /// 패들을 움직입니다.
+    /// 패들을 작동시킵니다.
     /// </summary>
     /// <param name="pos">이동할 포지션 값</param>
-    public void Move(Vector3 pos)
+    public void Operate(Vector3 pos)
     {
         moveBehaviour?.Move(gameObject, Camera.main.ScreenToWorldPoint(pos), 0.3f);
         state?.Move(this);
+
+        paddleSlider.setValue(pos.x / Screen.width);
     }
 }
