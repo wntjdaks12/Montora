@@ -13,10 +13,16 @@ public class PaddleSlider : MonoBehaviour
     {
         slider = GetComponent<Slider>();
     }
+
+    private void Start()
+    {
+        setValue(0.5f);
+    }
+
     /// <summary>
     /// 슬라이더 값을 변경합니다.
     /// </summary>
-    /// <param name="val"></param>
+    /// <param name="val">슬라이더 값</param>
     public void setValue(float val)
     {
         if (slider == null)
