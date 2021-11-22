@@ -10,8 +10,8 @@ public class PaddleHorizontalMove : PaddleMoveBehaviour
     // 가로로만 움직이는 메소드 입니다.
     public void Move(GameObject paddleObj, Vector3 pos, float lerpSpd)
     {
-        // 패들의 가로 절반의 사이즈와 해당 스크린 값을 구합니다.
-        var paddleHalfX = paddleObj.GetComponent<BoxCollider2D>().size * 0.5f;
+        // 패들의 사이즈 절반과 해당 스크린 값을 구합니다.
+        var paddleHalfX = paddleObj.GetComponent<SpriteRenderer>().bounds.extents;
         var scrWidth = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
 
         // 해당 스크린에 맞춰 패들의 움직이는 범위를 제어합니다.
