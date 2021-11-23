@@ -7,6 +7,7 @@ TagManager:
   - Paddle
   - Ceiling
   - Side
+  - Brick
   layers:
   - Default
   - TransparentFX
