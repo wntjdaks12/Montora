@@ -35,17 +35,48 @@ public class BrickJson
         // 해당 경로에 파일이 없을 경우 생성합니다.
         if (!new FileInfo(Application.dataPath + "Brick.json").Exists)
         {
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-            data.brickInfos.Add(new BrickInfo(new Vector3(1, 1, 1)));
-
+            data.brickInfos.Add(new BrickInfo(new Vector3(0.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-0.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(1.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-1.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-2.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(2.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(3.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-3.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(4.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-4.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(5.5f, 10.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-5.5f, 10.5f, 0f)));
+            //--
+            data.brickInfos.Add(new BrickInfo(new Vector3(0.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-0.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(1.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-2.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(2.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(3.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-3.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-4.5f, 9.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(5.5f, 9.5f, 0f)));
+            //--
+            data.brickInfos.Add(new BrickInfo(new Vector3(0.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-0.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-1.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-2.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(2.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-3.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-4.5f, 8.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-5.5f, 8.5f, 0f)));
+            //--
+            data.brickInfos.Add(new BrickInfo(new Vector3(0.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(1.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-1.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-2.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(2.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(3.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-3.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-4.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(5.5f, 7.5f, 0f)));
+            data.brickInfos.Add(new BrickInfo(new Vector3(-5.5f, 7.5f, 0f)));
             File.WriteAllText(Application.dataPath + "Brick.json", JsonUtility.ToJson(data));
         }
 
@@ -53,4 +84,6 @@ public class BrickJson
         var dataStr = File.ReadAllText(Application.dataPath + "Brick.json");
         data = JsonUtility.FromJson<BrickData>(dataStr);
     }
+
+    public static BrickData brickData { get { return data; } }
 }
