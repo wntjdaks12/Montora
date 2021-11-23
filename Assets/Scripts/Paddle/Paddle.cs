@@ -53,6 +53,6 @@ public class Paddle : MonoBehaviour
         moveBehaviour?.Move(gameObject, Camera.main.ScreenToWorldPoint(pos), 0.3f);
         state?.Move(this);
 
-        paddleSlider.setValue(pos.x / Screen.width);
+        paddleSlider?.setValue(pos.x / Screen.width);
     }
 }
