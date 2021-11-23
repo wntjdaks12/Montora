@@ -25,7 +25,7 @@ public class BrickData
 // 벽돌 제이슨
 public class BrickJson
 {
-    private BrickData data = new BrickData();
+    private static BrickData data = new BrickData();
 
     /// <summary>
     /// 벽돌 데이터를 읽습니다.
