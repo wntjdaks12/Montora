@@ -5,26 +5,38 @@ using UnityEngine;
 //공
 public class Ball : MonoBehaviour
 {
-    //테스트를 위해 생성한 변수, 추후에 사라질 예정입니다.
-    private enum StateType { Idle, UpMove, DownMove}
-    private StateType stateType = StateType.DownMove;
-    //---------------------------------------------------------------------------------------------------------------
+    // 공 상태를 가져옵니다.
+    private BallState ballState;
 
     // 반사각 계산을 위해 불러옵니다.
     private ReflectionAngleCalculator refAngleCalc;
    
     private Rigidbody2D rigid2D;
 
+    // 충돌 물체를 가져옵니다.
+    private Collision2D collision;
+
     private void Awake()
     {
         refAngleCalc = new ReflectionAngleCalculator();
 
         rigid2D = GetComponent<Rigidbody2D>();
+
+        ballState = BallDownMoveState.GetInstance();
     }
 
     private void FixedUpdate()
     {
         Move();
+    }
+
+    /// <summary>
+    /// 공의 상태를 변경합니다.
+    /// </summary>
+    /// <param name="ballState">공 상태 인스턴스</param>
+    public void setState(BallState ballState)
+    {
+        this.ballState = ballState;
     }
 
     /// <summary>
@@ -35,23 +47,34 @@ public class Ball : MonoBehaviour
         rigid2D.velocity = transform.up * 500 * Time.deltaTime;
     }
 
+    // 진행 방향을 위로 줍니다.
+    public void DirUp()
+    {
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle(transform.position.x, collision));
+    }
+
+    // 진행 방향을 반대로 줍니다.
+    public void DirRef()
+    {
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle(transform.eulerAngles.z));
+    }
+
+    // 진행 방향을 아래로 줍니다.
+    public void DirDown()
+    {
+        // 충돌 대상이 천장일 경우 회전 값을 밑으로 줍니다.
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle2(transform.eulerAngles.z));
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //StateType은 테스트를 위해 잠시 쓰는 용도이며 추후에 사라질 예정입니다.
-        if (collision.transform.tag.Equals("Paddle") && stateType.Equals(StateType.DownMove))
-        {
-            stateType = StateType.UpMove;
-            // 충돌 대상이 패들일 경우 회전 값을 위로 줍니다.
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle(transform.position.x, collision));
-        }
+        this.collision = collision;
+            
+        if (collision.transform.tag.Equals("Paddle"))
+            ballState.UpMove(this);
         else if (collision.transform.tag.Equals("Side"))
-            // 충돌 대상이 측면일 경우 회전 값을 반대로 줍니다.
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle(transform.eulerAngles.z));
-        else if ((collision.transform.tag.Equals("Ceiling") || collision.transform.tag.Equals("Brick")) && stateType.Equals(StateType.UpMove))
-        {
-            stateType = StateType.DownMove;
-            // 충돌 대상이 천장일 경우 회전 값을 밑으로 줍니다.
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle2(transform.eulerAngles.z));
-        }
+            DirRef();
+        else if (collision.transform.tag.Equals("Ceiling") || collision.transform.tag.Equals("Brick"))
+            ballState.DownMove(this);
     }
 }

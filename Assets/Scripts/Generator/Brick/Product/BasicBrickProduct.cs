@@ -10,8 +10,8 @@ public class BasicBrickProduct : BrickProduct
     /// <summary>
     /// 벽돌을 생성합니다.
     /// </summary>
-    /// <param name="pool"></param>
-    /// <param name="pos"></param>
+    /// <param name="pool">오브젝트 풀</param>
+    /// <param name="pos">생성 위치</param>
     public override void Create(Pool pool, Vector3 pos)
     {
         if (pool == null)
