@@ -33,7 +33,7 @@ public class BallSizeUpSkill : SkillBehaviour
         {
             await Task.Delay(5000, tokenSource.Token);
 
-            obj.transform.localScale = obj.transform.localScale / 2;
+            obj.transform.localScale = new Vector3(1, 1, 1);
         }
         catch (Exception ex)
         {

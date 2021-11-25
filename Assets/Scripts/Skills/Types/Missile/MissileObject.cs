@@ -21,7 +21,7 @@ public class MissileObject : MonoBehaviour
 
     private void Awake()
     {
-        Destroy(this, 2f);
+        Destroy(this.gameObject, 2f);
     }
 
     private void Start()
@@ -62,5 +62,11 @@ public class MissileObject : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    public void OnDestroy()
+    {
+        foreach (GameObject obj in pool.ObjectPool)
+            Destroy(obj);
     }
 }

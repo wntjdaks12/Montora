@@ -21,6 +21,9 @@ public class Ball : MonoBehaviour
     //임시 데이터 소스입니다. 테스트용
     public bool isPiercing;
 
+    //게임 매니저를 참조합니다.
+    private GameManager gameManager;
+
     private void OnEnable()
     {
         SkillButton.skillBehaviourEvent += setSkillBehavaiour;
@@ -33,6 +36,13 @@ public class Ball : MonoBehaviour
         rigid2D = GetComponent<Rigidbody2D>();
 
         ballState = BallDownMoveState.GetInstance();
+
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+    }
+
+    private void Start()
+    {
+        gameManager.BallNum = gameManager.BallNum + 1;
     }
 
     private void FixedUpdate()
@@ -121,6 +131,13 @@ public class Ball : MonoBehaviour
             ballState.DownMove(this);
         else if (collision.transform.tag.Equals("Brick") && !isPiercing)
             ballState.DownMove(this);
+        else if (collision.transform.tag.Equals("Floor"))
+        {
+            gameManager.BallNum = gameManager.BallNum - 1;
+
+            Destroy(this.gameManager);
+        }
+            
     }
 
     private void OnDisable()
