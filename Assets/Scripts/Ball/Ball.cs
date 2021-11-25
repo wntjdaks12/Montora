@@ -8,6 +8,8 @@ public class Ball : MonoBehaviour
     // 공 상태를 가져옵니다.
     private BallState ballState;
 
+    private SkillBehaviour skillBehaviour;
+
     // 반사각 계산을 위해 불러옵니다.
     private ReflectionAngleCalculator refAngleCalc;
    
@@ -15,6 +17,14 @@ public class Ball : MonoBehaviour
 
     // 충돌 물체를 가져옵니다.
     private Collision2D collision;
+
+    //임시 데이터 소스입니다. 테스트용
+    public bool isPiercing;
+
+    private void OnEnable()
+    {
+        SkillButton.skillBehaviourEvent += setSkillBehavaiour;
+    }
 
     private void Awake()
     {
@@ -39,11 +49,26 @@ public class Ball : MonoBehaviour
         this.ballState = ballState;
     }
 
+    public void setSkillBehavaiour(SkillBehaviour skillBehaviour)
+    {
+        this.skillBehaviour = skillBehaviour;
+
+        UseSkill();
+    }
+
+    public void UseSkill()
+    {
+        skillBehaviour?.Use(gameObject);
+    }
+
     /// <summary>
     /// 백터 Y를 기준으로 이동시킵니다.
     /// </summary>
     private void Move()
     {
+        if (rigid2D == null)
+            return;
+
         rigid2D.velocity = transform.up * 500 * Time.deltaTime;
     }
 
@@ -66,8 +91,11 @@ public class Ball : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, refAngleCalc.getAngle2(transform.eulerAngles.z));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (ballState == null)
+            return;
+
         this.collision = collision;
             
         if (collision.transform.tag.Equals("Paddle"))
@@ -76,5 +104,27 @@ public class Ball : MonoBehaviour
             DirRef();
         else if (collision.transform.tag.Equals("Ceiling") || collision.transform.tag.Equals("Brick"))
             ballState.DownMove(this);
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (ballState == null)
+            return;
+
+        this.collision = collision;
+
+        if (collision.transform.tag.Equals("Paddle"))
+            ballState.UpMove(this);
+        else if (collision.transform.tag.Equals("Side"))
+            DirRef();
+        else if (collision.transform.tag.Equals("Ceiling"))
+            ballState.DownMove(this);
+        else if (collision.transform.tag.Equals("Brick") && !isPiercing)
+            ballState.DownMove(this);
+    }
+
+    private void OnDisable()
+    {
+        SkillButton.skillBehaviourEvent -= setSkillBehavaiour;
     }
 }

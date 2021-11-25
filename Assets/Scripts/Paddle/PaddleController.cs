@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 패들 제어자
@@ -25,7 +26,7 @@ public class PaddleController : MonoBehaviour
         if (paddle == null)
             return;
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && EventSystem.current.currentSelectedGameObject == null)
             paddle.Operate(Input.mousePosition);
         else
             paddle.Stop();

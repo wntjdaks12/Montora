@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4950000935844659658}
   - component: {fileID: 4950000935844659657}
   - component: {fileID: 4950000935844659660}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Paddle
   m_TagString: Paddle
   m_Icon: {fileID: 0}
@@ -96,6 +96,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9440645b411a3794cae69f6a60ff4cd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  moveEvent:
+    m_PersistentCalls:
+      m_Calls: []
   paddleSlider: {fileID: 0}
 --- !u!61 &4950000935844659660
 BoxCollider2D:

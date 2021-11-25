@@ -22,6 +22,8 @@ public class PaddleMoveState : PaddleState
     public void Idle(Paddle paddle)
     {
         paddle.SetState(PaddleIdleState.GetInstance());
+
+        paddle.idleEvent?.Invoke();
     }
 
     public void Move(Paddle paddle)

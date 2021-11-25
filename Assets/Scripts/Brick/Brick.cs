@@ -12,7 +12,7 @@ public abstract class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Ball")
+        if (collision.transform.tag == "Ball" || collision.transform.tag == "Projectile")
         {
             ps.transform.parent = null;
 

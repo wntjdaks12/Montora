@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 패들
 /// </summary>
 public class Paddle : MonoBehaviour
 {
+    // 패들 상태 이벤트입니다.
+    public UnityEvent idleEvent, moveEvent;
+
     // 패들 작동에 있어 퍼사드로 묶은 요소들입니다.
     private PaddleState state;
     private PaddleMoveBehaviour moveBehaviour;

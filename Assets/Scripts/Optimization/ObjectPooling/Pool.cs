@@ -48,7 +48,7 @@ public class Pool : MonoBehaviour
             target.GetComponent<PoolableObject>().Pool = this;
 
             // 대상을 비활성화 시킵니다.
-            objectPool.Enqueue(target);
+            EnQueue(target); 
         }
     }
 
@@ -58,6 +58,9 @@ public class Pool : MonoBehaviour
     /// <returns></returns>
     public GameObject DeQueue()
     {
+        if (objectPool.Count == 0)
+            return null;
+
         var obj = objectPool.Dequeue();
         obj.SetActive(true);
 
